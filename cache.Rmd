@@ -1,0 +1,39 @@
+---
+title: "Cache me if you can"
+author: "Aaron Peikert"
+date: "6/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+if(!requireNamespace("pacman"))install.packages("pacman")
+pacman::p_load(here, fs)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::read_chunk(here("R", "long.R"))
+# cool kids uncomment the next line and load all files:
+# dir_walk("R", knitr::read_chunk)
+```
+
+# My fancy long running calculation
+
+This takes a while, but is worth it:
+
+```{r long-running-chunk, cache=TRUE, eval=!file_exists(here("data", "iris.csv"))}
+# notice the chunk name, same as in `long.R`
+```
+
+# My fancy plot, possible because of long running calculation
+
+```{r}
+myiris <- read.csv(here("data", "iris.csv"))
+```
+
+```{r}
+with(myiris, plot(Sepal.Length, Sepal.Width))
+```
+
+# Other Stuff
+
+```{r another-chunk}
+```
+
